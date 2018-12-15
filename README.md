@@ -20,8 +20,8 @@ Fork this repository, and submit your pull request providing a link to preview t
 
 ### Fonctionalités
 
-* Barre de recherche
-* Appel à l'API
+* 🏃 Barre de recherche
+* 🏃 Appel à l'API
 * Défilement infini
 * Changement du "hash"
 * Design adapté
@@ -29,7 +29,7 @@ Fork this repository, and submit your pull request providing a link to preview t
 ### Autre
 
 * ✅ ~~Boilerplate~~
-* Programation
+* 🏃 Programation
 * Publier
 * Documenter
 

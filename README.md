@@ -20,7 +20,7 @@ Fork this repository, and submit your pull request providing a link to preview t
 
 ### Fonctionalités
 
-* 🏃 Barre de recherche
+* ✅ Barre de recherche
 * 🏃 Appel à l'API
 * Défilement infini
 * Changement du "hash"

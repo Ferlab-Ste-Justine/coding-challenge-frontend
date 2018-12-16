@@ -25,7 +25,7 @@ const fetchPage = (searchTerm, pageNumber) => {
             sort: 'date-posted-desc',
             privacy_filter: '1',
             media: 'photos',
-            per_page: '6',
+            per_page: 48, // multiple of 12 to fit better with bootstrap columns
             page: pageNumber,
             format: 'json',
             nojsoncallback: '1',

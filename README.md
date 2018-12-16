@@ -22,9 +22,11 @@ Fork this repository, and submit your pull request providing a link to preview t
 
 * ✅ Barre de recherche
 * 🏃 Appel à l'API
+  * Gestion des erreurs
 * Défilement infini
 * Changement du "hash"
 * Design adapté
+
 
 ### Autre
 

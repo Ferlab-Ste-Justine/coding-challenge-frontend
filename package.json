@@ -1,7 +1,9 @@
 {
   "name": "chursj-julienberube",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "private": true,
+  "homepage": "https://jberube.github.io/chursj/",
+  "repository": "git@github.com:jberube/Frontend-Coding-Challenge.git",
   "dependencies": {
     "axios": "^0.18.0",
     "node-noop": "^1.0.0",
@@ -21,7 +23,9 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "predeploy": "yarn build",
+    "deploy": "gh-pages -d build -r git@github.com:jberube/jberube.github.io.git -b master --dest chursj"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -37,6 +41,7 @@
     "@types/jest": "^23.3.10",
     "enzyme": "^3.8.0",
     "enzyme-adapter-react-16": "^1.7.1",
+    "gh-pages": "^2.0.1",
     "react-test-renderer": "^16.6.3"
   }
 }

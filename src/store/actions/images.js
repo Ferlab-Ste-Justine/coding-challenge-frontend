@@ -7,7 +7,7 @@ import {
 } from '../actionTypes';
 
 const BASE_URL = 'https://api.flickr.com/services/rest/';
-const FLICKR_API_KEY = 'b75a009cee4005c8157be53006653f82';
+const FLICKR_API_KEY = '1e20ba9c0c43b0074962d00f383c8c86';
 
 const doneSearchImages = (pageNumber, images) => ({
     type: DONE_SEARCH_IMAGES,

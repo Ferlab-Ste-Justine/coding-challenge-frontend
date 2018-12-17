@@ -33,7 +33,7 @@ class SearchBar extends Component {
                     placeholder="keyword"
                     onKeyPress={this.handleKeyPressed}
                     onChange={this.handleChange}
-                    value={this.props.searchTerm}
+                    value={this.state.searchTerm}
                 />
             </div>
         );

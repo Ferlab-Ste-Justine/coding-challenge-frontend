@@ -69,12 +69,10 @@ class FlickrProvider extends PureComponent<
       keyword
     });
 
-    const payload: any = await getFlickrApiResults(keyword, nextPage).catch(
-      error => {
-        // TODO: Error handling (notication, node-bunyan, etc)
-        console.error(error);
-      }
-    );
+    const payload: any = await getFlickrApiResults(keyword).catch(error => {
+      // TODO: Error handling (notication, node-bunyan, etc)
+      console.error(error);
+    });
 
     // Async set results state whenever they arrive
     this.setState({

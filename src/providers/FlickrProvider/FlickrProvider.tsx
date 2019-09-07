@@ -11,9 +11,26 @@ interface FlickrProviderProps {
   children: (renderProps: FlickrProviderRenderProps) => void;
 }
 
+export interface FlickrPhoto {
+  farm: number;
+  height_q: string;
+  id: string;
+  isfamily: number;
+  isfriend: number;
+  ispublic: number;
+  owner: string;
+  ownername: string;
+  secret: string;
+  server: string;
+  title: string;
+  url_q: string;
+  width_q: string;
+}
+
 interface FlickrProviderState {
   keyword: string;
-  photos: any[]; // TODO: typings
+  photos: FlickrPhoto[];
+  nextPage: number;
 }
 
 export interface FlickrProviderRenderProps {
@@ -28,18 +45,17 @@ class FlickrProvider extends PureComponent<
 > {
   state = {
     keyword: '',
-    photos: []
+    photos: [],
+    nextPage: 1
   };
 
   componentDidMount() {
     const { keyword } = this.props.routeProps.match.params;
-    console.warn('componentDidMount keyword', keyword);
     this.getFlickrResults(keyword);
   }
 
   componentDidUpdate() {
     const { keyword } = this.props.routeProps.match.params;
-    console.warn('componentDidUpdate keyword', keyword);
     this.getFlickrResults(keyword);
   }
 
@@ -53,8 +69,12 @@ class FlickrProvider extends PureComponent<
       keyword
     });
 
-    const payload: any = await getFlickrApiResults(keyword);
-    console.warn('payload', payload);
+    const payload: any = await getFlickrApiResults(keyword, nextPage).catch(
+      error => {
+        // TODO: Error handling (notication, node-bunyan, etc)
+        console.error(error);
+      }
+    );
 
     // Async set results state whenever they arrive
     this.setState({

@@ -1,6 +1,6 @@
 import React, { Component, ChangeEvent } from 'react';
 import styled from 'styled-components';
-import { debounce } from 'lodash'; //TODO Check if tree-shaking works to keep bundle size small
+import debounce from 'lodash/debounce';
 
 interface SearchBarProps {
   keyword: string;
@@ -25,13 +25,6 @@ const Input = styled.input`
     outline: none;
   }
 `;
-
-// const ClearSearchButton = styled.button`
-//   background-color: black;
-//   color: white;
-//   display: inline-block;
-//   font-size: 0.8rem;
-// `;
 
 class SeachBar extends Component<SearchBarProps, SearchBarState> {
   // We need to cancel the debounced method if the component unmounts.
@@ -65,7 +58,6 @@ class SeachBar extends Component<SearchBarProps, SearchBarState> {
           onChange={this.handleOnChange}
           defaultValue={keyword}
         />
-        {/* <ClearSearchButton>Clear search</ClearSearchButton> */}
       </SearchBarWrapper>
     );
   }

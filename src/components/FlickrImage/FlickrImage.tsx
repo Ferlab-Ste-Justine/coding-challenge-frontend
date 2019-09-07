@@ -15,10 +15,6 @@ const ImageWrapper = styled.div`
   width: 100%;
 
   @media (min-width: 420px) {
-    width: 170px;
-  }
-
-  @media (min-width: 420px) {
     width: 43%;
   }
 

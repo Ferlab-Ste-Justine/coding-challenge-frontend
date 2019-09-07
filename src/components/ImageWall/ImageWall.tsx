@@ -4,7 +4,7 @@ import FlickrImage from '../FlickrImage';
 import { FlickrPhoto } from '../../providers/FlickrProvider';
 
 interface ImageWallProps {
-  images: FlickrPhoto[]; // TODO: typings
+  images: FlickrPhoto[];
 }
 
 const Wrapper = styled.div`
@@ -16,7 +16,6 @@ const Wrapper = styled.div`
 `;
 
 function ImageWall({ images }: ImageWallProps) {
-  console.warn('ImageWall images', images);
   return (
     <Wrapper>
       {images.map(img => (

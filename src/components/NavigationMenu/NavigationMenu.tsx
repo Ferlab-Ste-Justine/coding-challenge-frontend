@@ -38,9 +38,7 @@ function NavigationMenu() {
         </StyledNavLink>
       </ListItem>
       <ListItem>
-        <StyledNavLink exact to="/search">
-          Search
-        </StyledNavLink>
+        <StyledNavLink to="/search">Search</StyledNavLink>
       </ListItem>
     </UnorderedList>
   );

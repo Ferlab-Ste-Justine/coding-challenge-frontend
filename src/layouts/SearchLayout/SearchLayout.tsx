@@ -30,7 +30,7 @@ function SearchLayout(props: SearchLayoutProps) {
           <>
             <SearchBar keyword={keyword} updateKeyword={updateKeyword} />
             <Section>
-              {error}
+              {error && 'There was an error OR you are offline.'}
               {!error && keyword && isEmpty(photos) ? (
                 'Loading...'
               ) : (

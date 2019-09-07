@@ -74,11 +74,13 @@ class FlickrProvider extends PureComponent<
 
     const payload: any = await getFlickrApiResults(keyword).catch(error => {
       // TODO: Error handling (notication, node-bunyan, etc)
-      console.error(error);
-      return this.setState({
+      console.error('error', error);
+      this.setState({
         error
       });
     });
+
+    if (!payload) return;
 
     // Async set results state whenever they arrive
     this.setState({

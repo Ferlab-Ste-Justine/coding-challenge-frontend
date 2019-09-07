@@ -1,4 +1,4 @@
-import React, { Component, ChangeEvent } from 'react';
+import React, { PureComponent, ChangeEvent } from 'react';
 import styled from 'styled-components';
 import debounce from 'lodash/debounce';
 
@@ -31,7 +31,7 @@ const Label = styled.label`
   z-index: -1;
 `;
 
-class SeachBar extends Component<SearchBarProps, SearchBarState> {
+class SeachBar extends PureComponent<SearchBarProps, SearchBarState> {
   // We need to cancel the debounced method if the component unmounts.
   componentWillUnmount() {
     this.updateSearchKeyword.cancel();

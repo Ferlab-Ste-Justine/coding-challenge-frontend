@@ -33,13 +33,13 @@ function NavigationMenu() {
   return (
     <UnorderedList>
       <ListItem>
-        <StyledNavLink exact to="/search">
-          Search
+        <StyledNavLink exact to="/">
+          Home
         </StyledNavLink>
       </ListItem>
       <ListItem>
-        <StyledNavLink exact to="/about">
-          About
+        <StyledNavLink exact to="/search">
+          Search
         </StyledNavLink>
       </ListItem>
     </UnorderedList>

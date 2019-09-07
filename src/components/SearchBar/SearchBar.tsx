@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { debounce } from 'lodash'; //TODO Check if tree-shaking works to keep bundle size small
 
 interface SearchBarProps {
+  keyword: string;
   updateKeyword: (keyword: string) => void;
 }
 
@@ -54,12 +55,15 @@ class SeachBar extends Component<SearchBarProps, SearchBarState> {
   }, 1000);
 
   render() {
+    const { keyword } = this.props;
+
     return (
       <SearchBarWrapper>
         <Input
           type="text"
           placeholder="Search"
           onChange={this.handleOnChange}
+          defaultValue={keyword}
         />
         {/* <ClearSearchButton>Clear search</ClearSearchButton> */}
       </SearchBarWrapper>

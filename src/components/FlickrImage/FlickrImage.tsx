@@ -21,6 +21,14 @@ const ImageWrapper = styled.div`
   @media (min-width: 610px) {
     width: 170px;
   }
+
+  @media (min-width: 662px) {
+    width: 188px;
+  }
+
+  @media (min-width: 800px) {
+    width: 170px;
+  }
 `;
 
 const Image = styled.img`

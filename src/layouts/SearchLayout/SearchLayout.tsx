@@ -24,7 +24,9 @@ function SearchLayout(props: SearchLayoutProps) {
         {({
           keyword,
           photos,
+          hasMore,
           updateKeyword,
+          loadMore,
           error
         }: FlickrProviderRenderProps) => (
           <>
@@ -34,7 +36,11 @@ function SearchLayout(props: SearchLayoutProps) {
               {!error && keyword && isEmpty(photos) ? (
                 'Loading...'
               ) : (
-                <ImageWall images={photos} />
+                <ImageWall
+                  images={photos}
+                  loadMore={loadMore}
+                  hasMore={hasMore}
+                />
               )}
             </Section>
           </>

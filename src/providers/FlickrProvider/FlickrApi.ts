@@ -16,7 +16,7 @@ export const getFlickrApiResults = (keyword: string, page: number = 1) =>
       api_key: API_KEY,
       tags: keyword,
       extras: EXTRA_OPTIONS,
-      page,
+      page: page,
       format: RESPONSE_FORMAT,
       nojsoncallback: 1,
       per_page: ITEMS_PER_PAGE

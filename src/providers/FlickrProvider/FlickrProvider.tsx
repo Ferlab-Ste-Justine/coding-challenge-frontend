@@ -29,15 +29,22 @@ export interface FlickrPhoto {
 
 interface FlickrProviderState {
   keyword: string;
-  photos: FlickrPhoto[];
-  nextPage: number;
   error: string;
+  results: {
+    page: number;
+    pages: number;
+    perpage: number;
+    photo: FlickrPhoto[];
+    total: string;
+  };
 }
 
 export interface FlickrProviderRenderProps {
-  photos: FlickrProviderState['photos'];
+  photos: FlickrProviderState['results']['photo'];
   keyword: string;
+  hasMore: boolean;
   updateKeyword: (keyword: string) => void;
+  loadMore: (nextPage: number) => void;
   error: string;
 }
 
@@ -45,65 +52,94 @@ class FlickrProvider extends PureComponent<
   FlickrProviderProps,
   FlickrProviderState
 > {
-  state = {
-    keyword: '',
-    photos: [],
-    nextPage: 1,
-    error: ''
-  };
+  state = this.defaultState;
+
+  get defaultState() {
+    return {
+      keyword: '',
+      photos: [],
+      error: '',
+      results: {
+        page: 0,
+        pages: 0,
+        perpage: 0,
+        photo: [],
+        total: '0'
+      }
+    };
+  }
 
   componentDidMount() {
     const { keyword } = this.props.routeProps.match.params;
     this.getFlickrResults(keyword);
   }
 
-  componentDidUpdate() {
-    const { keyword } = this.props.routeProps.match.params;
-    this.getFlickrResults(keyword);
-  }
+  getFlickrResults = async (keyword?: string, nextPage: number = 1) => {
+    const {
+      keyword: previousKeyword,
+      results: { page }
+    } = this.state;
 
-  getFlickrResults = async (keyword?: string) => {
-    const { keyword: previousKeyword } = this.state;
+    // If no keyword, do nothing
+    // If no changes to keyword, nextPage, do nothing
+    if (!keyword || (keyword === previousKeyword && page === nextPage)) return;
 
-    if (!keyword || keyword === previousKeyword) return;
-
-    // Async set keyword state ASAP
-    this.setState({
-      keyword
-    });
-
-    const payload: any = await getFlickrApiResults(keyword).catch(error => {
-      // TODO: Error handling (notication, node-bunyan, etc)
-      console.error('error', error);
+    // Set new keyword state ASAP
+    if (keyword !== previousKeyword) {
       this.setState({
-        error
+        ...this.defaultState,
+        keyword
       });
-    });
+    }
 
+    const payload: any = await getFlickrApiResults(keyword, nextPage).catch(
+      error => {
+        // TODO: Error handling (notication, node-bunyan, etc)
+        console.error('error', error);
+        this.setState({
+          error
+        });
+      }
+    );
     if (!payload) return;
 
-    // Async set results state whenever they arrive
-    this.setState({
-      photos: payload.data.photos.photo,
-      error: ''
+    // Set state for new results whenever they arrive (async)
+    this.setState(previousState => {
+      return {
+        ...previousState,
+        error: '',
+        keyword,
+        results: {
+          ...payload.data.photos,
+          photo: [...previousState.results.photo, ...payload.data.photos.photo]
+        }
+      };
     });
   };
 
   updateKeyword = (keyword: string = '') => {
     const { push } = this.props.routeProps.history;
     push(`/search/${keyword.toLowerCase()}`);
+    this.getFlickrResults(keyword);
+  };
+
+  loadMore = (page: number) => {
+    const { keyword } = this.state;
+    this.getFlickrResults(keyword, page + 1);
   };
 
   render() {
     const { children } = this.props;
-    const { photos, keyword, error } = this.state;
-
+    const { results, keyword, error } = this.state;
+    const hasMore = results.page < results.pages;
     return (
       <>
         {children({
-          photos,
+          photos: results.photo,
+          hasMore,
           keyword,
           updateKeyword: this.updateKeyword,
+          loadMore: this.loadMore,
           error
         })}
       </>

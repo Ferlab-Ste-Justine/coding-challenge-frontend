@@ -1,10 +1,14 @@
 import React from 'react';
 import styled from 'styled-components';
+import isEmpty from 'lodash/isEmpty';
+import InfiniteScroll from 'react-infinite-scroller';
 import FlickrImage from '../FlickrImage';
 import { FlickrPhoto } from '../../providers/FlickrProvider';
 
 interface ImageWallProps {
   images: FlickrPhoto[];
+  hasMore: boolean;
+  loadMore: (nextPage: number) => void;
 }
 
 const Wrapper = styled.div`
@@ -15,13 +19,20 @@ const Wrapper = styled.div`
   margin-right: -10px;
 `;
 
-function ImageWall({ images }: ImageWallProps) {
+function ImageWall({ images, loadMore, hasMore }: ImageWallProps) {
+  if (isEmpty(images)) return null;
+
   return (
-    <Wrapper>
+    <InfiniteScroll
+      element={Wrapper}
+      pageStart={0}
+      loadMore={loadMore}
+      hasMore={hasMore}
+    >
       {images.map(img => (
         <FlickrImage key={img.id} img={img} />
       ))}
-    </Wrapper>
+    </InfiniteScroll>
   );
 }
 

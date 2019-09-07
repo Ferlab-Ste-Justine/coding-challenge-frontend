@@ -26,6 +26,11 @@ const Input = styled.input`
   }
 `;
 
+const Label = styled.label`
+  width: 0;
+  z-index: -1;
+`;
+
 class SeachBar extends Component<SearchBarProps, SearchBarState> {
   // We need to cancel the debounced method if the component unmounts.
   componentWillUnmount() {
@@ -52,8 +57,11 @@ class SeachBar extends Component<SearchBarProps, SearchBarState> {
 
     return (
       <SearchBarWrapper>
+        <Label htmlFor="search">Search</Label>
         <Input
           type="text"
+          id="search"
+          name="search"
           placeholder="Search"
           onChange={this.handleOnChange}
           defaultValue={keyword}

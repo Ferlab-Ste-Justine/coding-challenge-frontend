@@ -1,9 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
-import FlickrImage from '../FlickrImage/FlickrImage';
+import FlickrImage from '../FlickrImage';
+import { FlickrPhoto } from '../../providers/FlickrProvider';
 
 interface ImageWallProps {
-  images: any[]; // TODO: typings
+  images: FlickrPhoto[]; // TODO: typings
 }
 
 const Wrapper = styled.div`

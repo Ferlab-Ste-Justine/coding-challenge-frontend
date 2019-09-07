@@ -31,12 +31,14 @@ interface FlickrProviderState {
   keyword: string;
   photos: FlickrPhoto[];
   nextPage: number;
+  error: string;
 }
 
 export interface FlickrProviderRenderProps {
   photos: FlickrProviderState['photos'];
   keyword: string;
   updateKeyword: (keyword: string) => void;
+  error: string;
 }
 
 class FlickrProvider extends PureComponent<
@@ -46,7 +48,8 @@ class FlickrProvider extends PureComponent<
   state = {
     keyword: '',
     photos: [],
-    nextPage: 1
+    nextPage: 1,
+    error: ''
   };
 
   componentDidMount() {
@@ -72,11 +75,15 @@ class FlickrProvider extends PureComponent<
     const payload: any = await getFlickrApiResults(keyword).catch(error => {
       // TODO: Error handling (notication, node-bunyan, etc)
       console.error(error);
+      return this.setState({
+        error
+      });
     });
 
     // Async set results state whenever they arrive
     this.setState({
-      photos: payload.data.photos.photo
+      photos: payload.data.photos.photo,
+      error: ''
     });
   };
 
@@ -87,10 +94,17 @@ class FlickrProvider extends PureComponent<
 
   render() {
     const { children } = this.props;
-    const { photos, keyword } = this.state;
+    const { photos, keyword, error } = this.state;
 
     return (
-      <>{children({ photos, keyword, updateKeyword: this.updateKeyword })}</>
+      <>
+        {children({
+          photos,
+          keyword,
+          updateKeyword: this.updateKeyword,
+          error
+        })}
+      </>
     );
   }
 }

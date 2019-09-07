@@ -1,6 +1,7 @@
 import React, { ReactNode } from 'react';
 import styled from 'styled-components';
 import { RouteComponentProps } from 'react-router-dom';
+import isEmpty from 'lodash/isEmpty';
 import SearchBar from '../../components/SearchBar';
 import BaseLayout from '../BaseLayout';
 import FlickrProvider, {
@@ -20,11 +21,21 @@ function SearchLayout(props: SearchLayoutProps) {
   return (
     <BaseLayout>
       <FlickrProvider routeProps={props}>
-        {({ keyword, photos, updateKeyword }: FlickrProviderRenderProps) => (
+        {({
+          keyword,
+          photos,
+          updateKeyword,
+          error
+        }: FlickrProviderRenderProps) => (
           <>
             <SearchBar keyword={keyword} updateKeyword={updateKeyword} />
             <Section>
-              <ImageWall images={photos} />
+              {error}
+              {!error && keyword && isEmpty(photos) ? (
+                'Loading...'
+              ) : (
+                <ImageWall images={photos} />
+              )}
             </Section>
           </>
         )}

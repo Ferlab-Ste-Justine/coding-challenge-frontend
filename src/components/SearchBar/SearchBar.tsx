@@ -1,4 +1,4 @@
-import React, { PureComponent, ChangeEvent } from 'react';
+import React, { PureComponent, ChangeEvent, FormEvent } from 'react';
 import styled from 'styled-components';
 import debounce from 'lodash/debounce';
 
@@ -9,7 +9,7 @@ interface SearchBarProps {
 
 interface SearchBarState {}
 
-const SearchBarWrapper = styled.div`
+const SearchBarWrapper = styled.form`
   display: flex;
 `;
 
@@ -46,6 +46,10 @@ class SeachBar extends PureComponent<SearchBarProps, SearchBarState> {
     this.updateSearchKeyword('');
   };
 
+  handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+  };
+
   // We don't want to debounce the event itself.
   // https://reactjs.org/docs/events.html#event-pooling
   updateSearchKeyword = debounce((searchKeyword: string) => {
@@ -56,7 +60,7 @@ class SeachBar extends PureComponent<SearchBarProps, SearchBarState> {
     const { keyword } = this.props;
 
     return (
-      <SearchBarWrapper>
+      <SearchBarWrapper onSubmit={this.handleSubmit}>
         <Label htmlFor="search">Search</Label>
         <Input
           type="text"

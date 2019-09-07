@@ -30,7 +30,6 @@ body {
   background-color: rgba(0, 0, 0, 0.8);
   border-radius: 5px;
   opacity: 0;
-  transition: opacity 0s 0.3s, transform 0.3s ease-in;
   transform: translateX(-50%) translateY(calc(-100% - 10px));
   will-change: transform;
 }
